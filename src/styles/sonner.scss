@@ -1,0 +1,91 @@
+// Sonner toast color customization
+$info-color: #3195a5;
+$system-color: #53b1e6;
+$success-color: #91cc43;
+$warning-color: #b69329;
+$error-color: #dc3545;
+
+// Override Sonner default colors
+:root {
+  --sonner-info-bg: #{$info-color};
+  --sonner-info-text: #ffffff;
+  --sonner-success-bg: #{$success-color};
+  --sonner-success-text: #ffffff;
+  --sonner-warning-bg: #{$warning-color};
+  --sonner-warning-text: #ffffff;
+  --sonner-error-bg: #{$error-color};
+  --sonner-error-text: #ffffff;
+}
+
+// Sonner toast styling
+.sonner-toast {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+:root {
+  --toast-close-button-start:unset;
+  --toast-close-button-end: 0;
+
+}
+
+[data-sonner-toast] [data-close-button] {
+  transform: none !important;
+}
+
+
+.sonner-info {
+  background-color: var(--sonner-info-bg);
+  color: var(--sonner-info-text);
+
+  .sonner-close {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--sonner-info-text);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+.sonner-success {
+  background-color: var(--sonner-success-bg);
+  color: var(--sonner-success-text);
+
+  .sonner-close {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--sonner-success-text);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+.sonner-warning {
+  background-color: var(--sonner-warning-bg);
+  color: var(--sonner-warning-text);
+
+  .sonner-close {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--sonner-warning-text);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+.sonner-error {
+  background-color: var(--sonner-error-bg);
+  color: var(--sonner-error-text);
+
+  .sonner-close {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--sonner-error-text);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
