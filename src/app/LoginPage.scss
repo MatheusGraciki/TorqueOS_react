@@ -1,0 +1,128 @@
+.login-page {
+	@apply min-h-screen relative flex items-center justify-center bg-background px-4 py-10;
+
+	&__background {
+		@apply absolute inset-0 pointer-events-none;
+		background-image:
+			radial-gradient(circle at 12% 20%, hsl(var(--primary) / 0.12), transparent 35%),
+			radial-gradient(circle at 85% 80%, hsl(var(--primary) / 0.08), transparent 38%);
+	}
+}
+
+.login-card {
+	@apply relative z-10 w-full max-w-md border shadow-xl;
+
+	&__header {
+		@apply space-y-3;
+	}
+
+	&__brand {
+		@apply flex items-center gap-2;
+	}
+
+	&__brand-icon-wrap {
+		@apply h-8 w-8 rounded-md flex items-center justify-center;
+		background-color: hsl(var(--primary) / 0.15);
+	}
+
+	&__brand-icon {
+		@apply h-4 w-4 text-primary;
+	}
+
+	&__brand-name {
+		@apply text-sm font-medium text-muted-foreground tracking-wide uppercase;
+	}
+
+	&__title {
+		@apply text-2xl;
+	}
+
+	&__description {
+		@apply text-sm;
+	}
+}
+
+.login-form {
+	@apply space-y-4;
+
+	&__field {
+		@apply space-y-2;
+
+		label {
+			@apply text-foreground;
+		}
+	}
+
+	&__input-wrap {
+		@apply relative;
+
+		&:focus-within .login-form__input-icon {
+			@apply text-primary;
+		}
+	}
+
+	&__input-icon {
+		@apply absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none;
+		z-index: 2;
+	}
+
+	&__input {
+		@apply pr-3 bg-background;
+		padding-left: 2.75rem !important;
+		color: hsl(var(--foreground));
+
+		&::placeholder {
+			color: hsl(var(--muted-foreground));
+			opacity: 0.95;
+		}
+
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:-webkit-autofill:active {
+			padding-left: 2.75rem !important;
+			-webkit-text-fill-color: hsl(var(--foreground));
+			-webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+			transition: background-color 9999s ease-out 0s;
+		}
+
+		&:-moz-autofill {
+			box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+			-moz-text-fill-color: hsl(var(--foreground));
+		}
+	}
+
+	&__error {
+		@apply text-sm text-destructive;
+	}
+
+	&__submit {
+		@apply w-full;
+	}
+}
+
+.dark {
+	.login-card__title,
+	.login-form__field label,
+	.login-form__input {
+		color: hsl(var(--foreground));
+	}
+
+	.login-form__field label {
+		color: #fff;
+	}
+
+	.login-form__input {
+		color: #fff !important;
+		-webkit-text-fill-color: #fff !important;
+		caret-color: #fff;
+	}
+
+	.login-form__input::placeholder {
+		color: rgba(255, 255, 255, 0.72) !important;
+	}
+
+	.login-form__input-icon {
+		color: hsl(var(--foreground) / 0.75);
+	}
+}
