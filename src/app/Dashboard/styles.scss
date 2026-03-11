@@ -1,0 +1,71 @@
+.dashboard-page {
+	@apply space-y-6;
+
+	.dashboard-header {
+		@apply flex flex-col gap-3;
+	}
+
+	.dashboard-title {
+		@apply text-2xl font-bold text-foreground;
+	}
+
+	.dashboard-description {
+		@apply text-sm text-muted-foreground;
+	}
+
+	.dashboard-filters-grid {
+		@apply grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl;
+	}
+
+	.dashboard-filter-field {
+		@apply space-y-1;
+	}
+
+	.dashboard-stats-grid {
+		@apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4;
+	}
+
+	.dashboard-stat-card-content {
+		@apply p-4 flex items-center gap-3;
+	}
+
+	.dashboard-stat-icon {
+		@apply h-6 w-6 text-primary;
+	}
+
+	.dashboard-stat-label {
+		@apply text-sm text-muted-foreground;
+	}
+
+	.dashboard-stat-value {
+		@apply text-xl font-semibold;
+	}
+
+	.dashboard-stat-value-clickable {
+		@apply c-pointer;
+	}
+
+	.dashboard-tooltip-content {
+		@apply space-y-1 text-xs;
+	}
+
+	.dashboard-tooltip-row {
+		@apply flex items-center justify-between gap-3;
+	}
+}
+
+.dashboard-loading {
+	@apply flex flex-col items-center justify-center h-64 space-y-4;
+}
+
+.dashboard-loading-spinner {
+	@apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary;
+}
+
+.dashboard-loading-text {
+	@apply text-muted-foreground animate-pulse;
+}
+
+.c-pointer {
+	@apply cursor-pointer;
+}

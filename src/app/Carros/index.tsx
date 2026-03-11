@@ -9,6 +9,7 @@ import { Plus, Pencil, Trash2, Car } from "lucide-react";
 import { useCarrosPage } from "./hooks/useCarrosPage";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import "./styles.scss";
 
 export default function CarrosPage() {
   const {
@@ -38,39 +39,42 @@ export default function CarrosPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 space-y-4">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-        <p className="text-muted-foreground animate-pulse">Carregando veículos...</p>
+      <div className="carros-loading">
+        <div className="carros-loading-spinner"></div>
+        <p className="carros-loading-text">Carregando veículos...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="carros-page">
+      <div className="carros-header">
         <div>
-          <h1 className="text-2xl font-semibold flex items-center gap-2">
-            <Car className="h-6 w-6 text-primary" /> Carros
+          <h1 className="carros-title">
+            <Car className="carros-title-icon" /> Carros
           </h1>
-          <p className="text-muted-foreground">Gerencie os veículos cadastrados</p>
+          <p className="carros-description">Gerencie os veículos cadastrados</p>
         </div>
-        <Button onClick={openNew} className="gradient-primary text-primary-foreground">
-          <Plus className="h-4 w-4 mr-2" /> Novo Carro
+        <Button onClick={openNew} className="carros-new-button gradient-primary text-primary-foreground">
+          <Plus className="carros-new-button-icon" /> Novo Carro
         </Button>
       </div>
 
       <Card>
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-base">Lista de Carros</CardTitle>
-            <Select value={filterCliente} onValueChange={setFilterCliente}>
-              <SelectTrigger className="w-56">
+        <CardHeader className="carros-card-header">
+          <div className="carros-filters-row">
+            <CardTitle className="carros-card-title">Lista de Carros</CardTitle>
+            <Select
+              value={filterCliente === "all" ? "all" : String(filterCliente)}
+              onValueChange={(v) => setFilterCliente(v === "all" ? "all" : Number(v))}
+            >
+              <SelectTrigger className="carros-filter-select-trigger">
                 <SelectValue placeholder="Filtrar por cliente" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Todos os clientes</SelectItem>
                 {clientes.map((c) => (
-                  <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
+                  <SelectItem key={c.id} value={String(c.id)}>{c.nome}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -86,36 +90,36 @@ export default function CarrosPage() {
                 <TableHead>Cor</TableHead>
                 <TableHead>KM</TableHead>
                 <TableHead>Cliente</TableHead>
-                <TableHead className="w-24">Ações</TableHead>
+                <TableHead className="carros-actions-head">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+                  <TableCell colSpan={7} className="carros-empty-cell">
                     Nenhum carro encontrado
                   </TableCell>
                 </TableRow>
               ) : (
                 filtered.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell className="font-mono font-medium">{c.placa}</TableCell>
+                    <TableCell className="carros-placa-cell">{c.placa}</TableCell>
                     <TableCell>{c.marca} {c.modelo}</TableCell>
                     <TableCell>{c.ano}</TableCell>
                     <TableCell>{c.cor}</TableCell>
                     <TableCell>{c.quilometragem.toLocaleString("pt-BR")} km</TableCell>
                     <TableCell>{getClienteNome(c.clienteId)}</TableCell>
                     <TableCell>
-                      <div className="flex gap-1">
+                      <div className="carros-actions-row">
                         <Button variant="ghost" size="icon" onClick={() => openEdit(c)}>
-                          <Pencil className="h-4 w-4" />
+                          <Pencil className="carros-action-icon" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="icon"
                           onClick={() => handleDelete(c.id, (msg) => toast.success(msg))}
                         >
-                          <Trash2 className="h-4 w-4 text-destructive" />
+                          <Trash2 className="carros-action-icon carros-action-icon-delete" />
                         </Button>
                       </div>
                     </TableCell>
@@ -132,43 +136,43 @@ export default function CarrosPage() {
           <DialogHeader>
             <DialogTitle>{editId ? "Editar Carro" : "Novo Carro"}</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 py-2">
-            <div className="space-y-2">
+          <div className="carros-form">
+            <div className="carros-form-field">
               <Label>Cliente *</Label>
-              <Select value={form.clienteId} onValueChange={(v) => setForm({ ...form, clienteId: v })}>
+              <Select value={String(form.clienteId || "")} onValueChange={(v) => setForm({ ...form, clienteId: Number(v) })}>
                 <SelectTrigger><SelectValue placeholder="Selecione o cliente" /></SelectTrigger>
                 <SelectContent>
                   {clientes.map((c) => (
-                    <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
+                    <SelectItem key={c.id} value={String(c.id)}>{c.nome}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+            <div className="carros-form-grid-two">
+              <div className="carros-form-field">
                 <Label>Marca *</Label>
                 <Input value={form.marca} onChange={(e) => setForm({ ...form, marca: e.target.value })} placeholder="Ex: Fiat" />
               </div>
-              <div className="space-y-2">
+              <div className="carros-form-field">
                 <Label>Modelo</Label>
                 <Input value={form.modelo} onChange={(e) => setForm({ ...form, modelo: e.target.value })} placeholder="Ex: Uno" />
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="space-y-2">
+            <div className="carros-form-grid-three">
+              <div className="carros-form-field">
                 <Label>Placa *</Label>
                 <Input value={form.placa} onChange={(e) => setForm({ ...form, placa: e.target.value })} placeholder="ABC-1234" />
               </div>
-              <div className="space-y-2">
+              <div className="carros-form-field">
                 <Label>Ano</Label>
                 <Input type="number" value={form.ano} onChange={(e) => setForm({ ...form, ano: Number(e.target.value) })} />
               </div>
-              <div className="space-y-2">
+              <div className="carros-form-field">
                 <Label>Cor</Label>
                 <Input value={form.cor} onChange={(e) => setForm({ ...form, cor: e.target.value })} placeholder="Prata" />
               </div>
             </div>
-            <div className="space-y-2">
+            <div className="carros-form-field">
               <Label>Quilometragem</Label>
               <Input type="number" value={form.quilometragem} onChange={(e) => setForm({ ...form, quilometragem: Number(e.target.value) })} />
             </div>

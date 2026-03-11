@@ -1,0 +1,71 @@
+.clientes-page {
+	@apply space-y-6;
+
+	.clientes-header {
+		@apply flex items-center justify-between;
+	}
+
+	.clientes-title {
+		@apply text-2xl font-semibold flex items-center gap-2;
+	}
+
+	.clientes-title-icon {
+		@apply h-6 w-6 text-primary;
+	}
+
+	.clientes-description {
+		@apply text-muted-foreground;
+	}
+
+	.clientes-new-button-icon {
+		@apply h-4 w-4 mr-2;
+	}
+
+	.clientes-card-header {
+		@apply pb-3;
+	}
+
+	.clientes-card-title {
+		@apply text-base;
+	}
+
+	.clientes-actions-head {
+		@apply w-24;
+	}
+
+	.clientes-empty-cell {
+		@apply text-center text-muted-foreground py-8;
+	}
+
+	.clientes-actions-row {
+		@apply flex gap-1;
+	}
+
+	.clientes-action-icon {
+		@apply h-4 w-4;
+	}
+
+	.clientes-action-icon-delete {
+		@apply text-destructive;
+	}
+
+	.clientes-form {
+		@apply space-y-4 py-2;
+	}
+
+	.clientes-form-field {
+		@apply space-y-2;
+	}
+}
+
+.clientes-loading {
+	@apply flex flex-col items-center justify-center h-64 space-y-4;
+}
+
+.clientes-loading-spinner {
+	@apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary;
+}
+
+.clientes-loading-text {
+	@apply text-muted-foreground animate-pulse;
+}

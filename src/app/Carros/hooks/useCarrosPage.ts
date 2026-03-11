@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { getC, postC, cancel } from "@/helpers/conexao";
-import { listCarros, createCarro, updateCarro, deleteCarro, type CreateCarroInput } from "../api";
+import { getCarros, createCarro, updateCarro, deleteCarro } from "../api";
+import type { CreateCarroInput } from "../types";
 import type { Carro, Cliente } from "@/types/types";
 
 const emptyForm: CreateCarroInput = {
-  clienteId: "",
+  clienteId: 0,
   marca: "",
   modelo: "",
   ano: new Date().getFullYear(),
@@ -20,9 +21,9 @@ export function useCarrosPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [editId, setEditId] = useState<string | null>(null);
+  const [editId, setEditId] = useState<number | null>(null);
   const [form, setForm] = useState<CreateCarroInput>(emptyForm);
-  const [filterCliente, setFilterCliente] = useState<string>("all");
+  const [filterCliente, setFilterCliente] = useState<"all" | number>("all");
 
   const loadData = async () => {
     try {
@@ -46,7 +47,7 @@ export function useCarrosPage() {
   }, []);
 
   const filtered = filterCliente === "all" ? carros : carros.filter((c) => c.clienteId === filterCliente);
-  const getClienteNome = (id: string) => clientes.find((c) => c.id === id)?.nome ?? "—";
+  const getClienteNome = (id: number) => clientes.find((c) => c.id === id)?.nome ?? "—";
 
   const openNew = () => {
     setEditId(null);
@@ -88,7 +89,7 @@ export function useCarrosPage() {
     }
   };
 
-  const handleDelete = async (id: string, onSuccess: (msg: string) => void) => {
+  const handleDelete = async (id: number, onSuccess: (msg: string) => void) => {
     try {
       await deleteCarro(id);
       onSuccess("Carro removido");

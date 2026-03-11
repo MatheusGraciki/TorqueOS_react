@@ -8,6 +8,7 @@ import { Plus, Pencil, Trash2, Users } from "lucide-react";
 import { useClientesPage } from "./hooks/useClientesPage";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import "./styles.scss";
 
 export default function ClientesPage() {
   const {
@@ -35,30 +36,30 @@ export default function ClientesPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 space-y-4">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-        <p className="text-muted-foreground animate-pulse">Carregando clientes...</p>
+      <div className="clientes-loading">
+        <div className="clientes-loading-spinner"></div>
+        <p className="clientes-loading-text">Carregando clientes...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="clientes-page">
+      <div className="clientes-header">
         <div>
-          <h1 className="text-2xl font-semibold flex items-center gap-2">
-            <Users className="h-6 w-6 text-primary" /> Clientes
+          <h1 className="clientes-title">
+            <Users className="clientes-title-icon" /> Clientes
           </h1>
-          <p className="text-muted-foreground">Gerencie os clientes da oficina</p>
+          <p className="clientes-description">Gerencie os clientes da oficina</p>
         </div>
-        <Button onClick={openNew} className="gradient-primary text-primary-foreground">
-          <Plus className="h-4 w-4 mr-2" /> Novo Cliente
+        <Button onClick={openNew} className="clientes-new-button gradient-primary text-primary-foreground">
+          <Plus className="clientes-new-button-icon" /> Novo Cliente
         </Button>
       </div>
 
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base">Lista de Clientes</CardTitle>
+        <CardHeader className="clientes-card-header">
+          <CardTitle className="clientes-card-title">Lista de Clientes</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -68,13 +69,13 @@ export default function ClientesPage() {
                 <TableHead>Email</TableHead>
                 <TableHead>Telefone</TableHead>
                 <TableHead>Endereço</TableHead>
-                <TableHead className="w-24">Ações</TableHead>
+                <TableHead className="clientes-actions-head">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                  <TableCell colSpan={5} className="clientes-empty-cell">
                     Nenhum cliente encontrado
                   </TableCell>
                 </TableRow>
@@ -86,16 +87,16 @@ export default function ClientesPage() {
                     <TableCell>{c.telefone}</TableCell>
                     <TableCell>{c.endereco}</TableCell>
                     <TableCell>
-                      <div className="flex gap-1">
+                      <div className="clientes-actions-row">
                         <Button variant="ghost" size="icon" onClick={() => openEdit(c)}>
-                          <Pencil className="h-4 w-4" />
+                          <Pencil className="clientes-action-icon" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="icon"
                           onClick={() => handleDelete(c.id, (msg) => toast.success(msg))}
                         >
-                          <Trash2 className="h-4 w-4 text-destructive" />
+                          <Trash2 className="clientes-action-icon clientes-action-icon-delete" />
                         </Button>
                       </div>
                     </TableCell>
@@ -112,20 +113,20 @@ export default function ClientesPage() {
           <DialogHeader>
             <DialogTitle>{editId ? "Editar Cliente" : "Novo Cliente"}</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 py-2">
-            <div className="space-y-2">
+          <div className="clientes-form">
+            <div className="clientes-form-field">
               <Label>Nome *</Label>
               <Input value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} />
             </div>
-            <div className="space-y-2">
+            <div className="clientes-form-field">
               <Label>Email</Label>
               <Input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
-            <div className="space-y-2">
+            <div className="clientes-form-field">
               <Label>Telefone</Label>
               <Input value={form.telefone} onChange={(e) => setForm({ ...form, telefone: e.target.value })} />
             </div>
-            <div className="space-y-2">
+            <div className="clientes-form-field">
               <Label>Endereço</Label>
               <Input value={form.endereco} onChange={(e) => setForm({ ...form, endereco: e.target.value })} />
             </div>

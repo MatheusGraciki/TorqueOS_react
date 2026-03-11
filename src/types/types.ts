@@ -1,5 +1,5 @@
 export interface Cliente {
-  id: string;
+  id: number;
   nome: string;
   telefone: string;
   email: string;
@@ -9,8 +9,8 @@ export interface Cliente {
 }
 
 export interface Carro {
-  id: string;
-  clienteId: string;
+  id: number;
+  clienteId: number;
   marca: string;
   modelo: string;
   ano: number;
@@ -21,14 +21,14 @@ export interface Carro {
 }
 
 export interface Peca {
-  id: string;
+  id: number | string;
   nome: string;
   valor: number;
 }
 
 export interface Servico {
-  id: string;
-  carroId: string;
+  id: number;
+  carroId: number;
   descricaoServico: string;
   pecasUtilizadas: Peca[];
   valorHora: number;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getC } from "@/helpers/conexao";
-import { listClientes, createCliente, updateCliente, deleteCliente, type CreateClienteInput } from "../api";
+import { getClientes, createCliente, updateCliente, deleteCliente } from "../api";
+import type { CreateClienteInput } from "../types";
 import type { Cliente } from "@/types/types";
 
 const emptyForm: CreateClienteInput = {
@@ -17,7 +18,7 @@ export function useClientesPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [editId, setEditId] = useState<string | null>(null);
+  const [editId, setEditId] = useState<number | null>(null);
   const [form, setForm] = useState<CreateClienteInput>(emptyForm);
   const [filterNome, setFilterNome] = useState<string>("");
 
@@ -81,7 +82,7 @@ export function useClientesPage() {
     }
   };
 
-  const handleDelete = async (id: string, onSuccess: (msg: string) => void) => {
+  const handleDelete = async (id: number, onSuccess: (msg: string) => void) => {
     try {
       await deleteCliente(id);
       onSuccess("Cliente removido");

@@ -1,11 +1,14 @@
 import { useState, useMemo, useEffect } from "react";
-import { getC } from "@/helpers/conexao";
-import { listServicos, createServico, updateServico, deleteServico, type CreateServicoInput } from "../api";
+import { getServicos, createServico, updateServico, deleteServico } from "../api";
+import { getCarros, createCarro } from "@/app/Carros/api";
+import { getClientes, createCliente } from "@/app/Clientes/api";
+import type { CreateClienteInput } from "@/app/Clientes/types";
 import { calcularCustoPecas, calcularValorTotal } from "@/lib/calculations";
 import type { Servico, Carro, Cliente, Peca } from "@/types/types";
+import type { ClienteInlineForm, CreateServicoInput } from "../types";
 
 const emptyForm: CreateServicoInput = {
-  carroId: "",
+  carroId: 0,
   descricaoServico: "",
   pecasUtilizadas: [],
   valorHora: 0,
@@ -22,10 +25,10 @@ export function useServicosPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [open, setOpen] = useState<boolean>(false);
-  const [editId, setEditId] = useState<string | null>(null);
+  const [editId, setEditId] = useState<number | null>(null);
   const [form, setForm] = useState<CreateServicoInput>(emptyForm);
-  const [filterCliente, setFilterCliente] = useState<string>("all");
-  const [filterCarro, setFilterCarro] = useState<string>("all");
+  const [filterCliente, setFilterCliente] = useState<"all" | number>("all");
+  const [filterCarro, setFilterCarro] = useState<"all" | number>("all");
   const [pecaNome, setPecaNome] = useState<string>("");
   const [pecaValor, setPecaValor] = useState<string>("");
 
@@ -33,23 +36,28 @@ export function useServicosPage() {
   const [openCarro, setOpenCarro] = useState<boolean>(false);
   const [openCliente, setOpenCliente] = useState<boolean>(false);
   const [carroForm, setCarroForm] = useState<Partial<Carro>>({});
-  const [clienteForm, setClienteForm] = useState<Partial<Cliente>>({});
+  const [clienteForm, setClienteForm] = useState<ClienteInlineForm>({ tipoPessoa: "PF" });
+
+  const loadServicos = async () => {
+    const servicosData = await getServicos();
+    setServicos(servicosData);
+  };
+
+  const loadCarros = async () => {
+    const carrosData = await getCarros();
+    setCarros(carrosData);
+  };
+
+  const loadClientes = async () => {
+    const clientesData = await getClientes();
+    setClientes(clientesData);
+  };
 
   const loadData = async () => {
     try {
       setLoading(true);
       setError(null);
-      const [sPromise, sAbort] = getC("/servicos");
-      const [cPromise, cAbort] = getC("/carros");
-      const [clPromise, clAbort] = getC("/clientes");
-      
-      const sRes = await sPromise;
-      const cRes = await cPromise;
-      const clRes = await clPromise;
-      
-      setServicos(sRes.data);
-      setCarros(cRes.data);
-      setClientes(clRes.data);
+      await Promise.all([loadServicos(), loadCarros(), loadClientes()]);
     } catch (err: any) {
       setError(err.message || String(err));
     } finally {
@@ -61,14 +69,24 @@ export function useServicosPage() {
     loadData();
   }, []);
 
-  const getCarroLabel = (id: string) => {
+  const getCarroLabel = (id: number) => {
     const car = carros.find((c) => c.id === id);
     if (!car) return "—";
-    const cli = clientes.find((c) => c.id === car.clienteId);
-    return `${car.placa} — ${car.marca} ${car.modelo} (${cli?.nome ?? "?"})`;
+    return `${car.marca} ${car.modelo} — ${car.placa}`;
   };
 
-  const getClienteFromCarro = (carroId: string) => {
+  const getCarroNome = (id: number) => {
+    const car = carros.find((c) => c.id === id);
+    if (!car) return "—";
+    return `${car.marca} ${car.modelo}`;
+  };
+
+  const getCarroPlaca = (id: number) => {
+    const car = carros.find((c) => c.id === id);
+    return car?.placa ?? "—";
+  };
+
+  const getClienteFromCarro = (carroId: number) => {
     const car = carros.find((c) => c.id === carroId);
     return car?.clienteId ?? "";
   };
@@ -115,7 +133,7 @@ export function useServicosPage() {
     setPecaValor("");
   };
 
-  const removePeca = (id: string) => {
+  const removePeca = (id: string | number) => {
     setForm({ ...form, pecasUtilizadas: form.pecasUtilizadas.filter((p) => p.id !== id) });
   };
 
@@ -133,17 +151,17 @@ export function useServicosPage() {
         onSuccess("Serviço registrado");
       }
       setOpen(false);
-      loadData();
+      await loadServicos();
     } catch (err: any) {
       setError(err.message || String(err));
     }
   };
 
-  const handleDelete = async (id: string, onSuccess: (msg: string) => void) => {
+  const handleDelete = async (id: number, onSuccess: (msg: string) => void) => {
     try {
       await deleteServico(id);
       onSuccess("Serviço removido");
-      loadData();
+      await loadServicos();
     } catch (err: any) {
       setError(err.message || String(err));
     }
@@ -152,29 +170,80 @@ export function useServicosPage() {
   // helper used after creating car/client to refresh lists
   const reloadCars = async () => {
     try {
-      const [, cRes] = await getC("/carros");
-      setCarros(cRes.data);
+      await loadCarros();
     } catch {}
   };
 
   const reloadClients = async () => {
     try {
-      const [, clRes] = await getC("/clientes");
-      setClientes(clRes.data);
+      await loadClientes();
     } catch {}
   };
 
   const createCarroInline = async (data: Partial<Carro>) => {
-    if (!data.clienteId || !data.marca || !data.placa) return null;
-    const newCar = await createCarro(data as any);
-    reloadCars();
+    if (!data.clienteId || !data.marca || !data.placa) {
+      setError("Para criar carro: cliente, marca e placa são obrigatórios.");
+      return null;
+    }
+
+    const payload = {
+      clienteId: Number(data.clienteId),
+      marca: data.marca,
+      modelo: data.modelo ?? "",
+      ano: Number(data.ano ?? new Date().getFullYear()),
+      placa: data.placa,
+      cor: data.cor ?? "",
+      quilometragem: Number(data.quilometragem ?? 0),
+    };
+
+    const newCar = await createCarro(payload);
+    await reloadCars();
     return newCar;
   };
 
-  const createClienteInline = async (data: Partial<Cliente>) => {
-    if (!data.nome) return null;
-    const newCli = await createCliente(data as any);
-    reloadClients();
+  const createClienteInline = async (data: ClienteInlineForm) => {
+    if (!data.nome?.trim()) {
+      setError("Nome do cliente é obrigatório.");
+      return null;
+    }
+
+    if (!data.tipoPessoa) {
+      setError("Tipo de cliente (PF/PJ) é obrigatório.");
+      return null;
+    }
+
+    if (!data.documento?.trim()) {
+      setError(`${data.tipoPessoa === "PF" ? "CPF" : "CNPJ"} é obrigatório.`);
+      return null;
+    }
+
+    if (!data.endereco?.trim()) {
+      setError("Endereço é obrigatório.");
+      return null;
+    }
+
+    const documentoNumerico = data.documento.replace(/\D/g, "");
+    if (data.tipoPessoa === "PF" && documentoNumerico.length !== 11) {
+      setError("CPF deve ter 11 dígitos.");
+      return null;
+    }
+    if (data.tipoPessoa === "PJ" && documentoNumerico.length !== 14) {
+      setError("CNPJ deve ter 14 dígitos.");
+      return null;
+    }
+
+    const payload: CreateClienteInput = {
+      nome: data.nome.trim(),
+      email: data.email ?? "",
+      telefone: data.telefone ?? "",
+      endereco: data.endereco.trim(),
+      tipo: data.tipoPessoa === "PJ" ? "JURIDICA" : "PESSOA_FISICA",
+      cpf: data.tipoPessoa === "PF" ? documentoNumerico : undefined,
+      cnpj: data.tipoPessoa === "PJ" ? documentoNumerico : undefined,
+    };
+
+    const newCli = await createCliente(payload);
+    await reloadClients();
     return newCli;
   };
 
@@ -201,6 +270,9 @@ export function useServicosPage() {
     custoPecas,
     valorTotal,
     getCarroLabel,
+    getCarroNome,
+    getCarroPlaca,
+    getClienteFromCarro,
     openNew,
     openEdit,
     addPeca,

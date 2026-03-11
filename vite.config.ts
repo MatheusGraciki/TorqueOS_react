@@ -12,10 +12,7 @@ export default defineConfig({
     },
     
     proxy: {
-      '/clientes': 'http://localhost:3000',
-      '/carros': 'http://localhost:3000',
-      '/servicos': 'http://localhost:3000',
-      '/dashboard': 'http://localhost:3000',
+      '/api': 'http://localhost:3001',
       // add additional backend endpoints here as necessary
     },
   },

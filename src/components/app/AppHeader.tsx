@@ -13,7 +13,6 @@ export function AppHeader({ onToggleSidebar }: AppHeaderProps) {
         <Menu className="h-5 w-5" />
       </Button>
       <div className="flex-1">
-        <h1 className="text-lg font-semibold text-foreground">AutoGest</h1>
       </div>
       <ThemeSelector />
     </header>

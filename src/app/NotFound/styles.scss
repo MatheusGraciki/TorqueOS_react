@@ -1,0 +1,11 @@
+.notfound-page {
+	@apply space-y-6;
+
+	.notfound-title {
+		@apply text-2xl font-bold text-foreground;
+	}
+
+	.notfound-description {
+		@apply text-muted-foreground;
+	}
+}
