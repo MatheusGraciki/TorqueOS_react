@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip } from "@/components/ui/tooltip";
+import { formatDate } from "../../../../lib/date";
 import { Pencil, Trash2, User, Wrench } from "lucide-react";
 import type { Servico } from "@/types/types";
 import "./styles.scss";
@@ -55,7 +56,7 @@ export const ServicosList = ({
               </div>
 
               <div className="servicos-mobile-footer">
-                <p className="servicos-mobile-date">{new Date(s.dataServico).toLocaleDateString("pt-BR")}</p>
+                <p className="servicos-mobile-date">{formatDate(s.dataServico)}</p>
                 <p className="servicos-mobile-total">{currencyCompact(s.valorTotal)}</p>
               </div>
 
@@ -100,7 +101,7 @@ export const ServicosList = ({
             ) : (
               filtered.map((s) => (
                 <TableRow key={s.id}>
-                  <TableCell>{new Date(s.dataServico).toLocaleDateString("pt-BR")}</TableCell>
+                  <TableCell>{formatDate(s.dataServico)}</TableCell>
                   <TableCell>{getCarroLabel(s.carroId)}</TableCell>
                   <TableCell>{clienteNomeByCarroId.get(s.carroId) ?? "—"}</TableCell>
                   <TableCell>

@@ -4,6 +4,7 @@ import { getCarros, createCarro } from "@/app/Carros/api";
 import { getClientes, createCliente } from "@/app/Clientes/api";
 import type { CreateClienteInput } from "@/app/Clientes/types";
 import { calcularCustoPecas, calcularValorTotal } from "@/lib/calculations";
+import { toDateInputValueInSaoPaulo, todayDateInputInSaoPaulo } from "@/lib/date";
 import type { Servico, Carro, Cliente, Peca } from "@/types/types";
 import type { ClienteInlineForm, CreateServicoInput } from "../types";
 
@@ -13,7 +14,7 @@ const emptyForm: CreateServicoInput = {
   pecasUtilizadas: [],
   valorHora: 0,
   horasTrabalhadas: 0,
-  dataServico: new Date().toISOString().split("T")[0],
+  dataServico: todayDateInputInSaoPaulo(),
   observacoes: "",
 };
 
@@ -119,7 +120,7 @@ export function useServicosPage() {
       pecasUtilizadas: s.pecasUtilizadas,
       valorHora: s.valorHora,
       horasTrabalhadas: s.horasTrabalhadas,
-      dataServico: s.dataServico,
+      dataServico: toDateInputValueInSaoPaulo(s.dataServico),
       observacoes: s.observacoes,
     });
     setOpen(true);

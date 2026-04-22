@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { CalendarDays, CarFront, ClipboardList, Wrench } from "lucide-react";
+import { formatDate } from "../../../../lib/date";
 import type { Servico } from "@/types/types";
 import "./styles.scss";
 
@@ -28,10 +29,10 @@ export const ServicoDetailsDialog = ({
           <div className="servicos-details-header">
             <div className="servicos-details-title-wrap">
               <span className="servicos-details-eyebrow">Resumo do atendimento</span>
-              <DialogTitle>Detalhes do Serviço</DialogTitle>
+              <DialogTitle>Detalhes do Servico</DialogTitle>
             </div>
             <Badge variant="secondary" className="servicos-details-badge">
-              Concluído
+              Concluido
             </Badge>
           </div>
         </DialogHeader>
@@ -41,8 +42,8 @@ export const ServicoDetailsDialog = ({
             <div className="servicos-details-hero">
               <div className="servicos-details-hero-top">
                 <div className="servicos-details-hero-title-block">
-                  <p className="servicos-details-hero-kicker">Serviço principal</p>
-                  <h3 className="servicos-details-hero-title">{selectedServico.descricaoServico || "Serviço realizado"}</h3>
+                  <p className="servicos-details-hero-kicker">Servico principal</p>
+                  <h3 className="servicos-details-hero-title">{selectedServico.descricaoServico || "Servico realizado"}</h3>
                 </div>
                 <div className="servicos-details-hero-total">
                   <span className="servicos-details-metric-label">Valor total</span>
@@ -53,15 +54,15 @@ export const ServicoDetailsDialog = ({
               <div className="servicos-details-chip-row">
                 <div className="servicos-details-chip">
                   <CarFront className="servicos-details-chip-icon" />
-                  <span>{carroLabel || "—"}</span>
+                  <span>{carroLabel || "-"}</span>
                 </div>
                 <div className="servicos-details-chip">
                   <ClipboardList className="servicos-details-chip-icon" />
-                  <span>{clienteNome || "—"}</span>
+                  <span>{clienteNome || "-"}</span>
                 </div>
                 <div className="servicos-details-chip">
                   <CalendarDays className="servicos-details-chip-icon" />
-                  <span>{new Date(selectedServico.dataServico).toLocaleDateString("pt-BR")}</span>
+                  <span>{formatDate(selectedServico.dataServico)}</span>
                 </div>
               </div>
             </div>
@@ -69,19 +70,19 @@ export const ServicoDetailsDialog = ({
             <div className="servicos-row servicos-details-metrics-row">
               <div className="servicos-col servicos-col-6">
                 <div className="servicos-details-metric-card">
-                  <p className="servicos-details-metric-label">Peças</p>
+                  <p className="servicos-details-metric-label">Pecas</p>
                   <p className="servicos-details-metric-value">{selectedServico.pecasUtilizadas.length}</p>
                 </div>
               </div>
               <div className="servicos-col servicos-col-6">
                 <div className="servicos-details-metric-card">
-                  <p className="servicos-details-metric-label">Custo peças</p>
+                  <p className="servicos-details-metric-label">Custo pecas</p>
                   <p className="servicos-details-metric-value">{currency(selectedServico.custoPecas)}</p>
                 </div>
               </div>
               <div className="servicos-col servicos-col-6">
                 <div className="servicos-details-metric-card">
-                  <p className="servicos-details-metric-label">Mão de obra</p>
+                  <p className="servicos-details-metric-label">Mao de obra</p>
                   <p className="servicos-details-metric-value">
                     {currency(selectedServico.valorHora * selectedServico.horasTrabalhadas)}
                   </p>
@@ -97,14 +98,14 @@ export const ServicoDetailsDialog = ({
 
             <div className="servicos-details-grid-2col">
               <div className="servicos-details-panel servicos-details-panel-description">
-                <p className="servicos-details-section-title">Descrição</p>
-                <p className="servicos-details-description-text">{selectedServico.descricaoServico || "—"}</p>
+                <p className="servicos-details-section-title">Descricao</p>
+                <p className="servicos-details-description-text">{selectedServico.descricaoServico || "-"}</p>
               </div>
 
               <div className="servicos-details-panel">
-                <p className="servicos-details-section-title">Peças usadas</p>
+                <p className="servicos-details-section-title">Pecas usadas</p>
                 {selectedServico.pecasUtilizadas.length === 0 ? (
-                  <p className="servicos-details-empty">Nenhuma peça registrada</p>
+                  <p className="servicos-details-empty">Nenhuma peca registrada</p>
                 ) : (
                   <div className="servicos-details-parts-list">
                     {selectedServico.pecasUtilizadas.map((peca) => (
@@ -122,9 +123,9 @@ export const ServicoDetailsDialog = ({
             </div>
 
             <div className="servicos-details-panel servicos-details-panel-secondary">
-              <p className="servicos-details-section-title">Observações</p>
+              <p className="servicos-details-section-title">Observacoes</p>
               <p className="servicos-details-observations-text">
-                {selectedServico.observacoes || "Sem observações para este serviço."}
+                {selectedServico.observacoes || "Sem observacoes para este servico."}
               </p>
             </div>
           </div>

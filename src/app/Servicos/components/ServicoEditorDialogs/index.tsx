@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Plus, X } from "lucide-react";
 import { toast } from "sonner";
 import type { Carro, Cliente } from "@/types/types";
+import { toDateInputValueInSaoPaulo } from "../../../../lib/date";
 import type { Dispatch, SetStateAction } from "react";
 import type { ClienteInlineForm, CreateServicoInput } from "../../types";
 import "./styles.scss";
@@ -103,7 +104,11 @@ export const ServicoEditorDialogs = ({
               </div>
               <div className="servicos-form-field">
                 <Label>Data do Serviço</Label>
-                <Input type="date" value={form.dataServico} onChange={(e) => setForm({ ...form, dataServico: e.target.value })} />
+                <Input
+                  type="date"
+                  value={toDateInputValueInSaoPaulo(form.dataServico)}
+                  onChange={(e) => setForm({ ...form, dataServico: e.target.value })}
+                />
               </div>
             </div>
 
