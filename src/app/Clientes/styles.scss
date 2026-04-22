@@ -1,12 +1,12 @@
 .clientes-page {
-	@apply space-y-6;
+	@apply space-y-5 px-3 pb-20;
 
 	.clientes-header {
-		@apply flex items-center justify-between;
+		@apply flex flex-col gap-3;
 	}
 
 	.clientes-title {
-		@apply text-2xl font-semibold flex items-center gap-2;
+		@apply text-xl sm:text-2xl font-semibold flex items-center gap-2 leading-tight;
 	}
 
 	.clientes-title-icon {
@@ -14,7 +14,11 @@
 	}
 
 	.clientes-description {
-		@apply text-muted-foreground;
+		@apply text-sm sm:text-base text-muted-foreground;
+	}
+
+	.clientes-new-button {
+		@apply w-full hidden md:inline-flex md:w-auto;
 	}
 
 	.clientes-new-button-icon {
@@ -22,11 +26,67 @@
 	}
 
 	.clientes-card-header {
-		@apply pb-3;
+		@apply pb-2;
 	}
 
 	.clientes-card-title {
-		@apply text-base;
+		@apply text-base leading-tight;
+	}
+
+	.clientes-mobile-list {
+		@apply space-y-3 lg:hidden;
+	}
+
+	.clientes-empty-mobile {
+		@apply text-center text-muted-foreground py-8;
+	}
+
+	.clientes-mobile-card {
+		@apply rounded-lg border border-l-4 border-l-primary p-3 sm:p-4 space-y-3;
+	}
+
+	.clientes-mobile-client-header {
+		@apply space-y-0.5;
+	}
+
+	.clientes-mobile-client-name {
+		@apply font-semibold leading-tight text-sm sm:text-base truncate;
+	}
+
+	.clientes-mobile-client-document {
+		@apply text-sm text-muted-foreground truncate;
+	}
+
+	.clientes-mobile-meta {
+		@apply space-y-1 text-sm;
+	}
+
+	.clientes-mobile-meta-line {
+		@apply flex items-center gap-2 min-w-0;
+	}
+
+	.clientes-mobile-meta-icon {
+		@apply h-4 w-4 shrink-0;
+	}
+
+	.clientes-mobile-meta-text {
+		@apply truncate;
+	}
+
+	.clientes-mobile-actions {
+		@apply grid grid-cols-1 sm:grid-cols-2 gap-2;
+	}
+
+	.clientes-mobile-action-btn {
+		@apply h-10 w-full;
+	}
+
+	.clientes-mobile-action-icon {
+		@apply h-4 w-4 mr-2;
+	}
+
+	.clientes-desktop-table-wrap {
+		@apply hidden lg:block overflow-x-auto;
 	}
 
 	.clientes-actions-head {
@@ -56,6 +116,42 @@
 	.clientes-form-field {
 		@apply space-y-2;
 	}
+}
+
+@media (min-width: 640px) {
+	.clientes-page {
+		@apply px-4 pb-24;
+	}
+}
+
+@media (min-width: 768px) {
+	.clientes-page {
+		.clientes-header {
+			@apply flex-row items-center justify-between;
+		}
+	}
+}
+
+@media (min-width: 1024px) {
+	.clientes-page {
+		@apply space-y-6 px-0 pb-6;
+	}
+}
+
+@media (max-width: 420px) {
+	.clientes-page {
+		.clientes-mobile-meta-line {
+			@apply text-xs;
+		}
+	}
+}
+
+.clientes-fab {
+	@apply fixed bottom-4 right-4 h-14 w-14 rounded-full shadow-lg z-20 md:hidden;
+}
+
+.clientes-fab-icon {
+	@apply h-6 w-6;
 }
 
 .clientes-loading {

@@ -9,7 +9,7 @@ import { LoadingState } from "./components/LoadingState/index";
 import { ServicosHeader } from "./components/ServicosHeader/index";
 import { ServicosFilters } from "./components/ServicosFilters/index";
 import { ServicosList } from "./components/ServicosList/index";
-import { ServicoDetailsDialog } from "./components/ServicoDetailsDialog/index";
+import { ServicoDetailsDialog } from "./components/ServicoDetailsDialog/index.tsx";
 import { ServicoEditorDialogs } from "./components/ServicoEditorDialogs/index";
 import "./styles.scss";
 

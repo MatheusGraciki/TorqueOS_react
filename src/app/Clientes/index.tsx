@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2, Users } from "lucide-react";
+import { Mail, MapPin, Pencil, Phone, Plus, Trash2, Users } from "lucide-react";
 import { useClientesPage } from "./hooks/useClientesPage";
 import { toast } from "sonner";
 import { useEffect } from "react";
@@ -62,17 +62,72 @@ export default function ClientesPage() {
           <CardTitle className="clientes-card-title">Lista de Clientes</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nome</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Telefone</TableHead>
-                <TableHead>Endereço</TableHead>
-                <TableHead className="clientes-actions-head">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <div className="clientes-mobile-list">
+            {filtered.length === 0 ? (
+              <div className="clientes-empty-mobile">Nenhum cliente encontrado</div>
+            ) : (
+              filtered.map((c) => (
+                <div key={c.id} className="clientes-mobile-card">
+                  <div className="clientes-mobile-client-header">
+                    <p className="clientes-mobile-client-name" title={c.nome}>{c.nome}</p>
+                    {c.documento ? (
+                      <p className="clientes-mobile-client-document" title={c.documento}>{c.documento}</p>
+                    ) : null}
+                  </div>
+
+                  <div className="clientes-mobile-meta">
+                    <p className="clientes-mobile-meta-line">
+                      <Mail className="clientes-mobile-meta-icon" />
+                      <span className="clientes-mobile-meta-text" title={c.email || "Sem email"}>
+                        {c.email || "Sem email"}
+                      </span>
+                    </p>
+                    <p className="clientes-mobile-meta-line">
+                      <Phone className="clientes-mobile-meta-icon" />
+                      <span className="clientes-mobile-meta-text" title={c.telefone || "Sem telefone"}>
+                        {c.telefone || "Sem telefone"}
+                      </span>
+                    </p>
+                    <p className="clientes-mobile-meta-line">
+                      <MapPin className="clientes-mobile-meta-icon" />
+                      <span className="clientes-mobile-meta-text" title={c.endereco || "Sem endereço"}>
+                        {c.endereco || "Sem endereço"}
+                      </span>
+                    </p>
+                  </div>
+
+                  <div className="clientes-mobile-actions">
+                    <Button variant="outline" size="sm" className="clientes-mobile-action-btn" onClick={() => openEdit(c)}>
+                      <Pencil className="clientes-mobile-action-icon" />
+                      Editar
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="clientes-mobile-action-btn"
+                      onClick={() => handleDelete(c.id, (msg) => toast.success(msg))}
+                    >
+                      <Trash2 className="clientes-mobile-action-icon" />
+                      Excluir
+                    </Button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          <div className="clientes-desktop-table-wrap">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Telefone</TableHead>
+                  <TableHead>Endereço</TableHead>
+                  <TableHead className="clientes-actions-head">Ações</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={5} className="clientes-empty-cell">
@@ -103,10 +158,15 @@ export default function ClientesPage() {
                   </TableRow>
                 ))
               )}
-            </TableBody>
-          </Table>
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
+
+      <Button onClick={openNew} size="icon" className="clientes-fab gradient-primary text-primary-foreground">
+        <Plus className="clientes-fab-icon" />
+      </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>

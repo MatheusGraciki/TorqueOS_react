@@ -38,7 +38,7 @@ export const ServicoDetailsDialog = ({
         </DialogHeader>
 
         {selectedServico && (
-          <div className="servicos-details-content pt-0">
+          <div className="servicos-details-content servicos-details-body pt-0">
             <div className="servicos-details-hero">
               <div className="servicos-details-hero-top">
                 <div className="servicos-details-hero-title-block">
@@ -67,32 +67,24 @@ export const ServicoDetailsDialog = ({
               </div>
             </div>
 
-            <div className="servicos-row servicos-details-metrics-row">
-              <div className="servicos-col servicos-col-6">
-                <div className="servicos-details-metric-card">
-                  <p className="servicos-details-metric-label">Pecas</p>
-                  <p className="servicos-details-metric-value">{selectedServico.pecasUtilizadas.length}</p>
-                </div>
+            <div className="servicos-details-metrics-grid">
+              <div className="servicos-details-metric-card">
+                <p className="servicos-details-metric-label">Pecas</p>
+                <p className="servicos-details-metric-value">{selectedServico.pecasUtilizadas.length}</p>
               </div>
-              <div className="servicos-col servicos-col-6">
-                <div className="servicos-details-metric-card">
-                  <p className="servicos-details-metric-label">Custo pecas</p>
-                  <p className="servicos-details-metric-value">{currency(selectedServico.custoPecas)}</p>
-                </div>
+              <div className="servicos-details-metric-card">
+                <p className="servicos-details-metric-label">Custo pecas</p>
+                <p className="servicos-details-metric-value">{currency(selectedServico.custoPecas)}</p>
               </div>
-              <div className="servicos-col servicos-col-6">
-                <div className="servicos-details-metric-card">
-                  <p className="servicos-details-metric-label">Mao de obra</p>
-                  <p className="servicos-details-metric-value">
-                    {currency(selectedServico.valorHora * selectedServico.horasTrabalhadas)}
-                  </p>
-                </div>
+              <div className="servicos-details-metric-card">
+                <p className="servicos-details-metric-label">Mao de obra</p>
+                <p className="servicos-details-metric-value">
+                  {currency(selectedServico.valorHora * selectedServico.horasTrabalhadas)}
+                </p>
               </div>
-              <div className="servicos-col servicos-col-6">
-                <div className="servicos-details-metric-card">
-                  <p className="servicos-details-metric-label">Horas trabalhadas</p>
-                  <p className="servicos-details-metric-value">{selectedServico.horasTrabalhadas.toFixed(1)}h</p>
-                </div>
+              <div className="servicos-details-metric-card">
+                <p className="servicos-details-metric-label">Horas trabalhadas</p>
+                <p className="servicos-details-metric-value">{selectedServico.horasTrabalhadas.toFixed(1)}h</p>
               </div>
             </div>
 
@@ -112,7 +104,7 @@ export const ServicoDetailsDialog = ({
                       <div key={peca.id} className="servicos-details-part-row">
                         <span className="servicos-details-part-name">
                           <Wrench className="servicos-details-part-icon" />
-                          {peca.nome}
+                          <span className="servicos-details-part-name-text">{peca.nome}</span>
                         </span>
                         <span className="servicos-details-part-value">{currency(peca.valor)}</span>
                       </div>

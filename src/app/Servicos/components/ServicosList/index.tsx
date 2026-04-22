@@ -37,45 +37,59 @@ export const ServicosList = ({
         {filtered.length === 0 ? (
           <div className="servicos-empty-mobile">Nenhum serviço encontrado</div>
         ) : (
-          filtered.map((s) => (
-            <div key={s.id} className="servicos-mobile-card">
-              <div className="servicos-mobile-car-header">
-                <p className="servicos-mobile-car-name">{getCarroNome(s.carroId)}</p>
-                <p className="servicos-mobile-car-plate">{getCarroPlaca(s.carroId)}</p>
-              </div>
+          filtered.map((s) => {
+            const carroNome = getCarroNome(s.carroId);
+            const carroPlaca = getCarroPlaca(s.carroId);
+            const clienteNome = clienteNomeByCarroId.get(s.carroId) ?? "—";
 
-              <div className="servicos-mobile-meta">
-                <p className="servicos-mobile-meta-line">
-                  <User className="servicos-mobile-meta-icon" />
-                  {clienteNomeByCarroId.get(s.carroId) ?? "—"}
-                </p>
-                <p className="servicos-mobile-meta-line">
-                  <Wrench className="servicos-mobile-meta-icon" />
-                  {s.descricaoServico}
-                </p>
-              </div>
+            return (
+              <div key={s.id} className="servicos-mobile-card">
+                <div className="servicos-mobile-car-header">
+                  <p className="servicos-mobile-car-name" title={carroNome}>
+                    {carroNome}
+                  </p>
+                  <p className="servicos-mobile-car-plate" title={carroPlaca}>
+                    {carroPlaca}
+                  </p>
+                </div>
 
-              <div className="servicos-mobile-footer">
-                <p className="servicos-mobile-date">{formatDate(s.dataServico)}</p>
-                <p className="servicos-mobile-total">{currencyCompact(s.valorTotal)}</p>
-              </div>
+                <div className="servicos-mobile-meta">
+                  <p className="servicos-mobile-meta-line">
+                    <User className="servicos-mobile-meta-icon" />
+                    <span className="servicos-mobile-meta-text" title={clienteNome}>
+                      {clienteNome}
+                    </span>
+                  </p>
+                  <p className="servicos-mobile-meta-line">
+                    <Wrench className="servicos-mobile-meta-icon" />
+                    <span className="servicos-mobile-meta-text" title={s.descricaoServico}>
+                      {s.descricaoServico}
+                    </span>
+                  </p>
+                </div>
 
-              <div className="servicos-mobile-actions">
-                <Button variant="outline" size="sm" className="servicos-mobile-action-btn" onClick={() => openEdit(s)}>
-                  <Pencil className="servicos-mobile-action-icon" />
-                  Editar
-                </Button>
-                <Button variant="outline" size="sm" className="servicos-mobile-action-btn" onClick={() => handleDelete(s.id)}>
-                  <Trash2 className="servicos-mobile-action-icon" />
-                  Excluir
-                </Button>
-              </div>
+                <div className="servicos-mobile-footer">
+                  <p className="servicos-mobile-date">{formatDate(s.dataServico)}</p>
+                  <p className="servicos-mobile-total">{currencyCompact(s.valorTotal)}</p>
+                </div>
 
-              <button type="button" onClick={() => openDetails(s)} className="servicos-mobile-details-link">
-                Ver detalhes
-              </button>
-            </div>
-          ))
+                <div className="servicos-mobile-actions">
+                  <Button variant="outline" size="sm" className="servicos-mobile-action-btn" onClick={() => openEdit(s)}>
+                    <Pencil className="servicos-mobile-action-icon" />
+                    Editar
+                  </Button>
+                  <Button variant="outline" size="sm" className="servicos-mobile-action-btn" onClick={() => handleDelete(s.id)}>
+                    <Trash2 className="servicos-mobile-action-icon" />
+                    Excluir
+                  </Button>
+                </div>
+
+                <button type="button" onClick={() => openDetails(s)} className="servicos-mobile-details-link">
+                  Ver detalhes
+                </button>
+              </div>
+            );
+          })
         )}
       </div>
 
@@ -99,47 +113,60 @@ export const ServicosList = ({
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((s) => (
-                <TableRow key={s.id}>
-                  <TableCell>{formatDate(s.dataServico)}</TableCell>
-                  <TableCell>{getCarroLabel(s.carroId)}</TableCell>
-                  <TableCell>{clienteNomeByCarroId.get(s.carroId) ?? "—"}</TableCell>
-                  <TableCell>
-                    <button type="button" onClick={() => openDetails(s)} className="servicos-descricao-button">
-                      {s.descricaoServico}
-                    </button>
-                  </TableCell>
-                  <TableCell className="servicos-total-cell">
-                    <Tooltip
-                      position="top"
-                      text={
-                        <div className="servicos-tooltip-content">
-                          <div className="servicos-tooltip-row">
-                            <span>Peças</span>
-                            <span>{currency(s.custoPecas)}</span>
+              filtered.map((s) => {
+                const carroLabel = getCarroLabel(s.carroId);
+                const clienteNome = clienteNomeByCarroId.get(s.carroId) ?? "—";
+
+                return (
+                  <TableRow key={s.id}>
+                    <TableCell>{formatDate(s.dataServico)}</TableCell>
+                    <TableCell>
+                      <span className="servicos-table-ellipsis" title={carroLabel}>
+                        {carroLabel}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="servicos-table-ellipsis" title={clienteNome}>
+                        {clienteNome}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <button type="button" onClick={() => openDetails(s)} className="servicos-descricao-button" title={s.descricaoServico}>
+                        {s.descricaoServico}
+                      </button>
+                    </TableCell>
+                    <TableCell className="servicos-total-cell">
+                      <Tooltip
+                        position="top"
+                        text={
+                          <div className="servicos-tooltip-content">
+                            <div className="servicos-tooltip-row">
+                              <span>Peças</span>
+                              <span>{currency(s.custoPecas)}</span>
+                            </div>
+                            <div className="servicos-tooltip-row">
+                              <span>Mão de obra</span>
+                              <span>{currency(s.valorHora * s.horasTrabalhadas)}</span>
+                            </div>
                           </div>
-                          <div className="servicos-tooltip-row">
-                            <span>Mão de obra</span>
-                            <span>{currency(s.valorHora * s.horasTrabalhadas)}</span>
-                          </div>
-                        </div>
-                      }
-                    >
-                      <span className="c-pointer">{currency(s.valorTotal)}</span>
-                    </Tooltip>
-                  </TableCell>
-                  <TableCell>
-                    <div className="servicos-actions-row">
-                      <Button variant="ghost" size="icon" onClick={() => openEdit(s)}>
-                        <Pencil className="servicos-action-icon" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(s.id)}>
-                        <Trash2 className="servicos-action-icon servicos-action-icon-delete" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
+                        }
+                      >
+                        <span className="c-pointer">{currency(s.valorTotal)}</span>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>
+                      <div className="servicos-actions-row">
+                        <Button variant="ghost" size="icon" onClick={() => openEdit(s)}>
+                          <Pencil className="servicos-action-icon" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(s.id)}>
+                          <Trash2 className="servicos-action-icon servicos-action-icon-delete" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
             )}
           </TableBody>
         </Table>

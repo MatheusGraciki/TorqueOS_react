@@ -1,19 +1,23 @@
 .servicos-card-title {
-  @apply text-base;
+  @apply text-base leading-tight;
 }
 
 .servicos-desktop-filters {
-  @apply hidden sm:flex sm:items-center sm:justify-between;
+  @apply hidden md:flex md:items-center md:justify-between md:gap-4;
 }
 
 .servicos-filters-row {
-  @apply flex items-center gap-2 flex-wrap;
+  @apply flex items-center gap-2 flex-wrap w-full md:w-auto;
 }
 
 .servicos-filter-select-trigger {
-  @apply w-full sm:w-56;
+  @apply w-full md:w-56;
 }
 
 .servicos-mobile-filters {
-  @apply sm:hidden space-y-2;
+  @apply md:hidden space-y-2;
+}
+
+.servicos-mobile-filters [data-slot="select-trigger"] {
+  @apply h-10;
 }

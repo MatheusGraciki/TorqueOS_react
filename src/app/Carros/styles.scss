@@ -1,12 +1,12 @@
 .carros-page {
-	@apply space-y-6;
+	@apply space-y-5 px-3 pb-20;
 
 	.carros-header {
-		@apply flex items-center justify-between;
+		@apply flex flex-col gap-3;
 	}
 
 	.carros-title {
-		@apply text-2xl font-semibold flex items-center gap-2;
+		@apply text-xl sm:text-2xl font-semibold flex items-center gap-2 leading-tight;
 	}
 
 	.carros-title-icon {
@@ -14,7 +14,11 @@
 	}
 
 	.carros-description {
-		@apply text-muted-foreground;
+		@apply text-sm sm:text-base text-muted-foreground;
+	}
+
+	.carros-new-button {
+		@apply w-full hidden md:inline-flex md:w-auto;
 	}
 
 	.carros-new-button-icon {
@@ -22,19 +26,75 @@
 	}
 
 	.carros-card-header {
-		@apply pb-3;
+		@apply pb-2;
 	}
 
 	.carros-filters-row {
-		@apply flex items-center justify-between;
+		@apply flex flex-col gap-3;
 	}
 
 	.carros-card-title {
-		@apply text-base;
+		@apply text-base leading-tight;
 	}
 
 	.carros-filter-select-trigger {
-		@apply w-56;
+		@apply w-full;
+	}
+
+	.carros-mobile-list {
+		@apply space-y-3 lg:hidden;
+	}
+
+	.carros-empty-mobile {
+		@apply text-center text-muted-foreground py-8;
+	}
+
+	.carros-mobile-card {
+		@apply rounded-lg border border-l-4 border-l-primary p-3 sm:p-4 space-y-3;
+	}
+
+	.carros-mobile-car-header {
+		@apply space-y-0.5;
+	}
+
+	.carros-mobile-car-name {
+		@apply font-semibold leading-tight text-sm sm:text-base truncate;
+	}
+
+	.carros-mobile-car-plate {
+		@apply text-sm text-muted-foreground font-mono;
+	}
+
+	.carros-mobile-meta {
+		@apply grid grid-cols-1 gap-1 text-sm;
+	}
+
+	.carros-mobile-meta-line {
+		@apply flex items-center gap-2 min-w-0;
+	}
+
+	.carros-mobile-meta-icon {
+		@apply h-4 w-4 shrink-0;
+	}
+
+	.carros-mobile-meta-text {
+		@apply truncate;
+	}
+
+	.carros-mobile-actions {
+		@apply grid grid-cols-1 sm:grid-cols-2 gap-2;
+	}
+
+	.carros-mobile-action-btn {
+		@apply h-10 w-full;
+	}
+
+	.carros-mobile-action-icon {
+		@apply h-4 w-4 mr-2;
+	}
+
+	.carros-desktop-table-wrap {
+		@apply hidden lg:block overflow-x-auto;
 	}
 
 	.carros-actions-head {
@@ -70,12 +130,56 @@
 	}
 
 	.carros-form-grid-two {
-		@apply grid grid-cols-2 gap-4;
+		@apply grid grid-cols-1 sm:grid-cols-2 gap-4;
 	}
 
 	.carros-form-grid-three {
-		@apply grid grid-cols-3 gap-4;
+		@apply grid grid-cols-1 sm:grid-cols-3 gap-4;
 	}
+}
+
+@media (min-width: 640px) {
+	.carros-page {
+		@apply px-4 pb-24;
+	}
+}
+
+@media (min-width: 768px) {
+	.carros-page {
+		.carros-header {
+			@apply flex-row items-center justify-between;
+		}
+
+		.carros-filters-row {
+			@apply flex-row items-center justify-between;
+		}
+
+		.carros-filter-select-trigger {
+			@apply w-56;
+		}
+	}
+}
+
+@media (min-width: 1024px) {
+	.carros-page {
+		@apply space-y-6 px-0 pb-6;
+	}
+}
+
+@media (max-width: 420px) {
+	.carros-page {
+		.carros-mobile-meta-line {
+			@apply text-xs;
+		}
+	}
+}
+
+.carros-fab {
+	@apply fixed bottom-4 right-4 h-14 w-14 rounded-full shadow-lg z-20 md:hidden;
+}
+
+.carros-fab-icon {
+	@apply h-6 w-6;
 }
 
 .carros-loading {

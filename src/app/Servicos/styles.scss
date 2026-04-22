@@ -1,13 +1,25 @@
 .servicos-page {
-  @apply space-y-6;
+  @apply space-y-5 px-3 pb-20;
+}
+
+@media (min-width: 640px) {
+  .servicos-page {
+    @apply px-4 pb-24;
+  }
+}
+
+@media (min-width: 1024px) {
+  .servicos-page {
+    @apply space-y-6 px-0 pb-6;
+  }
 }
 
 .servicos-card-header {
-  @apply pb-3;
+  @apply pb-2;
 }
 
 .servicos-fab {
-  @apply sm:hidden fixed bottom-5 right-5 h-14 w-14 rounded-full shadow-lg;
+  @apply fixed bottom-4 right-4 h-14 w-14 rounded-full shadow-lg z-20 md:hidden;
 }
 
 .servicos-fab-icon {

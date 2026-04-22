@@ -86,7 +86,7 @@ export const ServicoEditorDialogs = ({
                 <Label>Carro *</Label>
                 <div className="servicos-inline-add-row">
                   <Select value={String(form.carroId || "")} onValueChange={(v) => setForm({ ...form, carroId: Number(v) })}>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Selecione o carro" />
                     </SelectTrigger>
                     <SelectContent>
@@ -97,7 +97,7 @@ export const ServicoEditorDialogs = ({
                       ))}
                     </SelectContent>
                   </Select>
-                  <Button size="icon" variant="outline" onClick={() => setOpenCarro(true)}>
+                  <Button size="icon" variant="outline" onClick={() => setOpenCarro(true)} className="servicos-inline-add-btn">
                     <Plus className="servicos-inline-add-icon" />
                   </Button>
                 </div>
@@ -125,22 +125,24 @@ export const ServicoEditorDialogs = ({
             <div className="servicos-form-field">
               <Label>Peças Utilizadas</Label>
               <div className="servicos-pecas-add-row">
-                <Input
-                  value={pecaNome}
-                  onChange={(e) => setPecaNome(e.target.value)}
-                  placeholder="Nome da peça"
-                  className="servicos-pecas-nome-input"
-                />
-                <Input
-                  type="number"
-                  value={pecaValor}
-                  onChange={(e) => setPecaValor(e.target.value)}
-                  placeholder="Valor"
-                  className="servicos-pecas-valor-input"
-                  min={0}
-                  step={0.01}
-                />
-                <Button type="button" variant="outline" onClick={addPeca} size="icon">
+                <div className="servicos-pecas-fields-row">
+                  <Input
+                    type="number"
+                    value={pecaValor}
+                    onChange={(e) => setPecaValor(e.target.value)}
+                    placeholder="Valor"
+                    className="servicos-pecas-valor-input"
+                    min={0}
+                    step={0.01}
+                  />
+                  <Input
+                    value={pecaNome}
+                    onChange={(e) => setPecaNome(e.target.value)}
+                    placeholder="Nome da peça"
+                    className="servicos-pecas-nome-input"
+                  />
+                </div>
+                <Button type="button" variant="outline" onClick={addPeca} size="icon" className="servicos-pecas-add-btn">
                   <Plus className="servicos-inline-add-icon" />
                 </Button>
               </div>
@@ -238,7 +240,7 @@ export const ServicoEditorDialogs = ({
               <Label>Cliente *</Label>
               <div className="servicos-inline-add-row">
                 <Select value={String(carroForm.clienteId || "")} onValueChange={(v) => setCarroForm({ ...carroForm, clienteId: Number(v) })}>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Selecione o cliente" />
                   </SelectTrigger>
                   <SelectContent>
@@ -249,7 +251,7 @@ export const ServicoEditorDialogs = ({
                     ))}
                   </SelectContent>
                 </Select>
-                <Button size="icon" variant="outline" onClick={() => setOpenCliente(true)}>
+                <Button size="icon" variant="outline" onClick={() => setOpenCliente(true)} className="servicos-inline-add-btn">
                   <Plus className="servicos-inline-add-icon" />
                 </Button>
               </div>

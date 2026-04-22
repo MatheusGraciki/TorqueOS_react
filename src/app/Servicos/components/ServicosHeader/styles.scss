@@ -1,9 +1,15 @@
 .servicos-header {
-  @apply flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
+  @apply flex flex-col gap-3;
+}
+
+@media (min-width: 768px) {
+  .servicos-header {
+    @apply flex-row items-center justify-between;
+  }
 }
 
 .servicos-title {
-  @apply text-2xl font-semibold flex items-center gap-2;
+  @apply text-xl sm:text-2xl font-semibold flex items-center gap-2 leading-tight;
 }
 
 .servicos-title-icon {
@@ -11,11 +17,11 @@
 }
 
 .servicos-description {
-  @apply text-muted-foreground;
+  @apply text-sm sm:text-base text-muted-foreground;
 }
 
 .servicos-new-button {
-  @apply w-full sm:w-auto hidden sm:inline-flex;
+  @apply w-full hidden md:inline-flex md:w-auto;
 }
 
 .servicos-new-button-icon {

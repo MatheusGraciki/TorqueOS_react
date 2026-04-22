@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2, Car } from "lucide-react";
+import { Calendar, Car, Gauge, Palette, Pencil, Plus, Trash2, User } from "lucide-react";
 import { useCarrosPage } from "./hooks/useCarrosPage";
 import { toast } from "sonner";
 import { useEffect } from "react";
@@ -81,19 +81,75 @@ export default function CarrosPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Placa</TableHead>
-                <TableHead>Marca/Modelo</TableHead>
-                <TableHead>Ano</TableHead>
-                <TableHead>Cor</TableHead>
-                <TableHead>KM</TableHead>
-                <TableHead>Cliente</TableHead>
-                <TableHead className="carros-actions-head">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+          <div className="carros-mobile-list">
+            {filtered.length === 0 ? (
+              <div className="carros-empty-mobile">Nenhum carro encontrado</div>
+            ) : (
+              filtered.map((c) => {
+                const clienteNome = getClienteNome(c.clienteId);
+                const modeloLabel = `${c.marca} ${c.modelo}`.trim();
+
+                return (
+                  <div key={c.id} className="carros-mobile-card">
+                    <div className="carros-mobile-car-header">
+                      <p className="carros-mobile-car-name" title={modeloLabel}>{modeloLabel}</p>
+                      <p className="carros-mobile-car-plate" title={c.placa}>{c.placa}</p>
+                    </div>
+
+                    <div className="carros-mobile-meta">
+                      <p className="carros-mobile-meta-line">
+                        <User className="carros-mobile-meta-icon" />
+                        <span className="carros-mobile-meta-text" title={clienteNome}>{clienteNome}</span>
+                      </p>
+                      <p className="carros-mobile-meta-line">
+                        <Calendar className="carros-mobile-meta-icon" />
+                        <span className="carros-mobile-meta-text">{c.ano}</span>
+                      </p>
+                      <p className="carros-mobile-meta-line">
+                        <Palette className="carros-mobile-meta-icon" />
+                        <span className="carros-mobile-meta-text" title={c.cor || "Sem cor"}>{c.cor || "Sem cor"}</span>
+                      </p>
+                      <p className="carros-mobile-meta-line">
+                        <Gauge className="carros-mobile-meta-icon" />
+                        <span className="carros-mobile-meta-text">{c.quilometragem.toLocaleString("pt-BR")} km</span>
+                      </p>
+                    </div>
+
+                    <div className="carros-mobile-actions">
+                      <Button variant="outline" size="sm" className="carros-mobile-action-btn" onClick={() => openEdit(c)}>
+                        <Pencil className="carros-mobile-action-icon" />
+                        Editar
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="carros-mobile-action-btn"
+                        onClick={() => handleDelete(c.id, (msg) => toast.success(msg))}
+                      >
+                        <Trash2 className="carros-mobile-action-icon" />
+                        Excluir
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          <div className="carros-desktop-table-wrap">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Placa</TableHead>
+                  <TableHead>Marca/Modelo</TableHead>
+                  <TableHead>Ano</TableHead>
+                  <TableHead>Cor</TableHead>
+                  <TableHead>KM</TableHead>
+                  <TableHead>Cliente</TableHead>
+                  <TableHead className="carros-actions-head">Ações</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={7} className="carros-empty-cell">
@@ -126,10 +182,15 @@ export default function CarrosPage() {
                   </TableRow>
                 ))
               )}
-            </TableBody>
-          </Table>
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
+
+      <Button onClick={openNew} size="icon" className="carros-fab gradient-primary text-primary-foreground">
+        <Plus className="carros-fab-icon" />
+      </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>

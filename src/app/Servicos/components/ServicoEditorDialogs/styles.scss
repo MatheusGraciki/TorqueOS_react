@@ -1,5 +1,19 @@
 .servicos-form-dialog-content {
-  @apply max-w-2xl max-h-[90vh] overflow-y-auto;
+  width: calc(100vw - 3rem) !important;
+  max-width: 42rem !important;
+  @apply max-h-[92dvh] overflow-y-auto p-4 sm:p-6 rounded-xl;
+}
+
+@media (min-width: 640px) {
+  .servicos-form-dialog-content {
+    width: calc(100vw - 5rem) !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .servicos-form-dialog-content {
+    width: calc(100vw - 3.5rem) !important;
+  }
 }
 
 .servicos-form {
@@ -11,27 +25,50 @@
 }
 
 .servicos-form-grid-two {
-  @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
 }
 
 .servicos-inline-add-row {
-  @apply flex flex-col sm:flex-row items-stretch sm:items-center gap-2;
+  @apply flex items-center gap-2;
+}
+
+.servicos-inline-add-row > :first-child {
+  @apply flex-1 min-w-0;
 }
 
 .servicos-inline-add-icon {
   @apply h-4 w-4;
 }
 
+.servicos-inline-add-btn {
+  @apply h-10 w-10 shrink-0;
+}
+
 .servicos-pecas-add-row {
-  @apply flex flex-col sm:flex-row gap-2;
+  @apply flex items-end gap-2;
+}
+
+.servicos-pecas-fields-row {
+  @apply grid flex-1 gap-2;
+  grid-template-columns: 1fr;
 }
 
 .servicos-pecas-nome-input {
-  @apply flex-1;
+  @apply w-full;
 }
 
 .servicos-pecas-valor-input {
-  @apply w-full sm:w-28;
+  @apply w-full;
+}
+
+.servicos-pecas-add-btn {
+  @apply h-10 w-10 shrink-0;
+}
+
+@media (min-width: 768px) {
+  .servicos-pecas-fields-row {
+    grid-template-columns: 2fr 3fr;
+  }
 }
 
 .servicos-pecas-list {
@@ -39,11 +76,11 @@
 }
 
 .servicos-peca-item-row {
-  @apply flex items-center justify-between px-3 py-2 text-sm;
+  @apply flex items-start sm:items-center justify-between px-3 py-2 text-sm gap-2;
 }
 
 .servicos-peca-item-actions {
-  @apply flex items-center gap-3;
+  @apply flex items-center gap-2 sm:gap-3;
 }
 
 .servicos-peca-item-valor {
@@ -63,7 +100,7 @@
 }
 
 .servicos-resumo-row {
-  @apply flex justify-between text-sm;
+  @apply flex justify-between text-sm gap-3;
 }
 
 .servicos-resumo-label {
@@ -75,7 +112,14 @@
 }
 
 .servicos-resumo-total-row {
-  @apply border-t pt-2 flex justify-between text-base font-semibold;
+  @apply border-t pt-2 flex justify-between gap-3 text-base font-semibold;
+}
+
+@media (max-width: 420px) {
+  .servicos-resumo-row,
+  .servicos-resumo-total-row {
+    @apply text-xs;
+  }
 }
 
 .servicos-resumo-total-value {
