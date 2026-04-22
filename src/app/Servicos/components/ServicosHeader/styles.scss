@@ -1,0 +1,23 @@
+.servicos-header {
+  @apply flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
+}
+
+.servicos-title {
+  @apply text-2xl font-semibold flex items-center gap-2;
+}
+
+.servicos-title-icon {
+  @apply h-6 w-6 text-primary;
+}
+
+.servicos-description {
+  @apply text-muted-foreground;
+}
+
+.servicos-new-button {
+  @apply w-full sm:w-auto hidden sm:inline-flex;
+}
+
+.servicos-new-button-icon {
+  @apply h-4 w-4 mr-2;
+}

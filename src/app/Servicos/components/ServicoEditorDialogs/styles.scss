@@ -1,0 +1,83 @@
+.servicos-form-dialog-content {
+  @apply max-w-2xl max-h-[90vh] overflow-y-auto;
+}
+
+.servicos-form {
+  @apply space-y-4 py-2;
+}
+
+.servicos-form-field {
+  @apply space-y-2;
+}
+
+.servicos-form-grid-two {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+}
+
+.servicos-inline-add-row {
+  @apply flex flex-col sm:flex-row items-stretch sm:items-center gap-2;
+}
+
+.servicos-inline-add-icon {
+  @apply h-4 w-4;
+}
+
+.servicos-pecas-add-row {
+  @apply flex flex-col sm:flex-row gap-2;
+}
+
+.servicos-pecas-nome-input {
+  @apply flex-1;
+}
+
+.servicos-pecas-valor-input {
+  @apply w-full sm:w-28;
+}
+
+.servicos-pecas-list {
+  @apply rounded-md border divide-y;
+}
+
+.servicos-peca-item-row {
+  @apply flex items-center justify-between px-3 py-2 text-sm;
+}
+
+.servicos-peca-item-actions {
+  @apply flex items-center gap-3;
+}
+
+.servicos-peca-item-valor {
+  @apply text-muted-foreground;
+}
+
+.servicos-peca-remove-btn {
+  @apply h-6 w-6;
+}
+
+.servicos-peca-remove-icon {
+  @apply h-3 w-3;
+}
+
+.servicos-resumo-box {
+  @apply rounded-md bg-muted p-4 space-y-2;
+}
+
+.servicos-resumo-row {
+  @apply flex justify-between text-sm;
+}
+
+.servicos-resumo-label {
+  @apply text-muted-foreground;
+}
+
+.servicos-resumo-value {
+  @apply font-medium;
+}
+
+.servicos-resumo-total-row {
+  @apply border-t pt-2 flex justify-between text-base font-semibold;
+}
+
+.servicos-resumo-total-value {
+  @apply text-primary;
+}

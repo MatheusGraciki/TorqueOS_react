@@ -3,7 +3,7 @@ import axios from "axios";
 // if an API URL is provided through env we use it, otherwise default to
 // an empty string so axios makes requests relative to the current origin.
 // that allows us to configure a dev server proxy and avoid CORS errors.
-const baseURL = import.meta.env.VITE_API_URL || "/api";
+const baseURL = import.meta.env.dev == true ? "/api" : "https://apitorqueos.graciki.systems";
 
 const instance = axios.create({
   baseURL,

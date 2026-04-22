@@ -1,0 +1,11 @@
+.servicos-loading {
+  @apply flex flex-col items-center justify-center h-64 space-y-4;
+}
+
+.servicos-loading-spinner {
+  @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary;
+}
+
+.servicos-loading-text {
+  @apply text-muted-foreground animate-pulse;
+}

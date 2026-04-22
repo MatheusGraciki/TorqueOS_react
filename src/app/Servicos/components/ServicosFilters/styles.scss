@@ -1,0 +1,19 @@
+.servicos-card-title {
+  @apply text-base;
+}
+
+.servicos-desktop-filters {
+  @apply hidden sm:flex sm:items-center sm:justify-between;
+}
+
+.servicos-filters-row {
+  @apply flex items-center gap-2 flex-wrap;
+}
+
+.servicos-filter-select-trigger {
+  @apply w-full sm:w-56;
+}
+
+.servicos-mobile-filters {
+  @apply sm:hidden space-y-2;
+}

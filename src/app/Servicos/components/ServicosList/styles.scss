@@ -1,0 +1,111 @@
+.c-pointer {
+  @apply cursor-pointer;
+}
+
+.servicos-mobile-list {
+  @apply space-y-3 md:hidden;
+}
+
+.servicos-empty-mobile {
+  @apply text-center text-muted-foreground py-8;
+}
+
+.servicos-mobile-card {
+  @apply rounded-md border border-l-4 border-l-primary p-4 space-y-3;
+}
+
+.servicos-mobile-car-header {
+  @apply space-y-0.5;
+}
+
+.servicos-mobile-car-name {
+  @apply font-semibold leading-tight;
+}
+
+.servicos-mobile-car-plate {
+  @apply text-sm text-muted-foreground;
+}
+
+.servicos-mobile-meta {
+  @apply space-y-1 text-sm;
+}
+
+.servicos-mobile-meta-line {
+  @apply flex items-center gap-2;
+}
+
+.servicos-mobile-meta-icon {
+  @apply h-4 w-4;
+}
+
+.servicos-mobile-footer {
+  @apply flex items-end justify-between gap-2;
+}
+
+.servicos-mobile-date {
+  @apply text-sm text-muted-foreground;
+}
+
+.servicos-mobile-total {
+  @apply text-xl font-semibold;
+}
+
+.servicos-mobile-actions {
+  @apply grid grid-cols-2 gap-2;
+}
+
+.servicos-mobile-action-btn {
+  @apply h-10;
+}
+
+.servicos-mobile-action-icon {
+  @apply h-4 w-4 mr-2;
+}
+
+.servicos-mobile-details-link {
+  @apply text-xs text-muted-foreground hover:underline;
+}
+
+.servicos-tooltip-content {
+  @apply space-y-1 text-xs;
+}
+
+.servicos-tooltip-row {
+  @apply flex items-center justify-between gap-3;
+}
+
+.servicos-desktop-table-wrap {
+  @apply hidden md:block overflow-x-auto;
+}
+
+.servicos-total-head {
+  @apply text-right;
+}
+
+.servicos-actions-head {
+  @apply w-24;
+}
+
+.servicos-empty-cell {
+  @apply text-center text-muted-foreground py-8;
+}
+
+.servicos-descricao-button {
+  @apply max-w-[220px] truncate text-left hover:underline;
+}
+
+.servicos-total-cell {
+  @apply text-right font-semibold;
+}
+
+.servicos-actions-row {
+  @apply flex gap-1;
+}
+
+.servicos-action-icon {
+  @apply h-4 w-4;
+}
+
+.servicos-action-icon-delete {
+  @apply text-destructive;
+}
