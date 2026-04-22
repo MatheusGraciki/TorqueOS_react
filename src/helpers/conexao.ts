@@ -3,7 +3,22 @@ import axios from "axios";
 // if an API URL is provided through env we use it, otherwise default to
 // an empty string so axios makes requests relative to the current origin.
 // that allows us to configure a dev server proxy and avoid CORS errors.
-const baseURL = import.meta.env.VITE_API_BASE_URL || "/api";
+function resolveApiBaseURL(): string {
+  const raw = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim();
+
+  if (!raw) {
+    return "/api";
+  }
+
+  if (raw.startsWith("http://") || raw.startsWith("https://") || raw.startsWith("/")) {
+    return raw;
+  }
+
+  // Accept host/path values and force absolute https URL.
+  return `https://${raw}`;
+}
+
+const baseURL = resolveApiBaseURL();
 
 const instance = axios.create({
   baseURL,
