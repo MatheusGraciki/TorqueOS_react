@@ -78,12 +78,40 @@
   @apply hidden lg:block overflow-x-auto;
 }
 
+.servicos-desktop-table {
+  @apply table-fixed;
+}
+
+.servicos-col-data {
+  width: 13%;
+}
+
+.servicos-col-carro {
+  width: 24%;
+}
+
+.servicos-col-cliente {
+  width: 14%;
+}
+
+.servicos-col-servico {
+  width: 31%;
+}
+
+.servicos-col-total {
+  width: 12%;
+}
+
+.servicos-col-acoes {
+  width: 7rem;
+}
+
 .servicos-total-head {
-  @apply text-right;
+  @apply text-left;
 }
 
 .servicos-actions-head {
-  @apply w-28;
+  @apply w-28 text-left;
 }
 
 .servicos-empty-cell {
@@ -91,15 +119,15 @@
 }
 
 .servicos-descricao-button {
-  @apply max-w-[280px] xl:max-w-[360px] truncate text-left hover:underline;
+  @apply block w-full truncate text-left hover:underline;
 }
 
 .servicos-total-cell {
-  @apply text-right font-semibold;
+  @apply text-left font-semibold tabular-nums;
 }
 
 .servicos-actions-row {
-  @apply flex gap-1;
+  @apply flex justify-start gap-1;
 }
 
 @media (max-width: 420px) {

@@ -3,11 +3,11 @@
 }
 
 .servicos-desktop-filters {
-  @apply hidden md:flex md:items-center md:justify-between md:gap-4;
+  @apply hidden md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-4;
 }
 
 .servicos-filters-row {
-  @apply flex items-center gap-2 flex-wrap w-full md:w-auto;
+  @apply flex items-center justify-end gap-2 flex-wrap w-full md:w-auto;
 }
 
 .servicos-filter-select-trigger {

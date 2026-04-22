@@ -94,7 +94,15 @@ export const ServicosList = ({
       </div>
 
       <div className="servicos-desktop-table-wrap">
-        <Table>
+        <Table className="servicos-desktop-table">
+          <colgroup>
+            <col className="servicos-col-data" />
+            <col className="servicos-col-carro" />
+            <col className="servicos-col-cliente" />
+            <col className="servicos-col-servico" />
+            <col className="servicos-col-total" />
+            <col className="servicos-col-acoes" />
+          </colgroup>
           <TableHeader>
             <TableRow>
               <TableHead>Data</TableHead>

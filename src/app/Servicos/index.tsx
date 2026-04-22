@@ -117,7 +117,7 @@ const ServicosPage = () => {
           />
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="servicos-card-content">
           <ServicosList
             filtered={filtered}
             getCarroNome={getCarroNome}

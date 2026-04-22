@@ -15,7 +15,11 @@
 }
 
 .servicos-card-header {
-  @apply pb-2;
+  @apply px-4 pb-2 sm:px-6;
+}
+
+.servicos-card-content {
+  @apply px-4 sm:px-6;
 }
 
 .servicos-fab {
