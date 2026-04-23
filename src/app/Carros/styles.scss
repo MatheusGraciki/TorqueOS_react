@@ -58,11 +58,11 @@
 	}
 
 	.carros-mobile-car-name {
-		@apply font-semibold leading-tight text-sm sm:text-base truncate;
+		@apply block font-semibold leading-tight text-sm sm:text-base truncate;
 	}
 
 	.carros-mobile-car-plate {
-		@apply text-sm text-muted-foreground font-mono;
+		@apply block text-sm text-muted-foreground font-mono truncate;
 	}
 
 	.carros-mobile-meta {
@@ -78,7 +78,7 @@
 	}
 
 	.carros-mobile-meta-text {
-		@apply truncate;
+		@apply block min-w-0 truncate;
 	}
 
 	.carros-mobile-actions {
@@ -95,6 +95,14 @@
 
 	.carros-desktop-table-wrap {
 		@apply hidden lg:block overflow-x-auto;
+	}
+
+	.carros-desktop-table {
+		@apply table-fixed;
+	}
+
+	.carros-table-ellipsis {
+		@apply block min-w-0 truncate;
 	}
 
 	.carros-actions-head {

@@ -19,11 +19,11 @@
 }
 
 .servicos-mobile-car-name {
-  @apply font-semibold leading-tight text-sm sm:text-base;
+  @apply block truncate font-semibold leading-tight text-sm sm:text-base;
 }
 
 .servicos-mobile-car-plate {
-  @apply text-sm text-muted-foreground;
+  @apply block truncate text-sm text-muted-foreground;
 }
 
 .servicos-mobile-meta {
@@ -31,11 +31,15 @@
 }
 
 .servicos-mobile-meta-line {
-  @apply flex items-center gap-2;
+  @apply flex items-center gap-2 min-w-0;
 }
 
 .servicos-mobile-meta-icon {
-  @apply h-4 w-4;
+  @apply h-4 w-4 shrink-0;
+}
+
+.servicos-mobile-meta-text {
+  @apply block min-w-0 truncate;
 }
 
 .servicos-mobile-footer {
@@ -116,6 +120,10 @@
 
 .servicos-empty-cell {
   @apply text-center text-muted-foreground py-8;
+}
+
+.servicos-table-ellipsis {
+  @apply block min-w-0 truncate;
 }
 
 .servicos-descricao-button {

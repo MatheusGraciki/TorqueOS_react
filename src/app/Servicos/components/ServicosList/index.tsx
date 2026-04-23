@@ -45,26 +45,34 @@ export const ServicosList = ({
             return (
               <div key={s.id} className="servicos-mobile-card">
                 <div className="servicos-mobile-car-header">
-                  <p className="servicos-mobile-car-name" title={carroNome}>
-                    {carroNome}
-                  </p>
-                  <p className="servicos-mobile-car-plate" title={carroPlaca}>
-                    {carroPlaca}
-                  </p>
+                  <Tooltip text={carroNome} position="top">
+                    <p className="servicos-mobile-car-name" title={carroNome}>
+                      {carroNome}
+                    </p>
+                  </Tooltip>
+                  <Tooltip text={carroPlaca} position="top">
+                    <p className="servicos-mobile-car-plate" title={carroPlaca}>
+                      {carroPlaca}
+                    </p>
+                  </Tooltip>
                 </div>
 
                 <div className="servicos-mobile-meta">
                   <p className="servicos-mobile-meta-line">
                     <User className="servicos-mobile-meta-icon" />
-                    <span className="servicos-mobile-meta-text" title={clienteNome}>
-                      {clienteNome}
-                    </span>
+                    <Tooltip text={clienteNome} position="top">
+                      <span className="servicos-mobile-meta-text" title={clienteNome}>
+                        {clienteNome}
+                      </span>
+                    </Tooltip>
                   </p>
                   <p className="servicos-mobile-meta-line">
                     <Wrench className="servicos-mobile-meta-icon" />
-                    <span className="servicos-mobile-meta-text" title={s.descricaoServico}>
-                      {s.descricaoServico}
-                    </span>
+                    <Tooltip text={s.descricaoServico} position="top">
+                      <span className="servicos-mobile-meta-text" title={s.descricaoServico}>
+                        {s.descricaoServico}
+                      </span>
+                    </Tooltip>
                   </p>
                 </div>
 
@@ -129,19 +137,25 @@ export const ServicosList = ({
                   <TableRow key={s.id}>
                     <TableCell>{formatDate(s.dataServico)}</TableCell>
                     <TableCell>
-                      <span className="servicos-table-ellipsis" title={carroLabel}>
-                        {carroLabel}
-                      </span>
+                      <Tooltip text={carroLabel} position="top">
+                        <span className="servicos-table-ellipsis" title={carroLabel}>
+                          {carroLabel}
+                        </span>
+                      </Tooltip>
                     </TableCell>
                     <TableCell>
-                      <span className="servicos-table-ellipsis" title={clienteNome}>
-                        {clienteNome}
-                      </span>
+                      <Tooltip text={clienteNome} position="top">
+                        <span className="servicos-table-ellipsis" title={clienteNome}>
+                          {clienteNome}
+                        </span>
+                      </Tooltip>
                     </TableCell>
                     <TableCell>
-                      <button type="button" onClick={() => openDetails(s)} className="servicos-descricao-button" title={s.descricaoServico}>
-                        {s.descricaoServico}
-                      </button>
+                      <Tooltip text={s.descricaoServico} position="top">
+                        <button type="button" onClick={() => openDetails(s)} className="servicos-descricao-button" title={s.descricaoServico}>
+                          {s.descricaoServico}
+                        </button>
+                      </Tooltip>
                     </TableCell>
                     <TableCell className="servicos-total-cell">
                       <Tooltip

@@ -50,11 +50,11 @@
 	}
 
 	.clientes-mobile-client-name {
-		@apply font-semibold leading-tight text-sm sm:text-base truncate;
+		@apply block font-semibold leading-tight text-sm sm:text-base truncate;
 	}
 
 	.clientes-mobile-client-document {
-		@apply text-sm text-muted-foreground truncate;
+		@apply block text-sm text-muted-foreground truncate;
 	}
 
 	.clientes-mobile-meta {
@@ -70,7 +70,7 @@
 	}
 
 	.clientes-mobile-meta-text {
-		@apply truncate;
+		@apply block min-w-0 truncate;
 	}
 
 	.clientes-mobile-actions {
@@ -87,6 +87,14 @@
 
 	.clientes-desktop-table-wrap {
 		@apply hidden lg:block overflow-x-auto;
+	}
+
+	.clientes-desktop-table {
+		@apply table-fixed;
+	}
+
+	.clientes-table-ellipsis {
+		@apply block min-w-0 truncate;
 	}
 
 	.clientes-actions-head {

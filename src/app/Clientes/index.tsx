@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Mail, MapPin, Pencil, Phone, Plus, Trash2, Users } from "lucide-react";
 import { useClientesPage } from "./hooks/useClientesPage";
@@ -69,30 +70,40 @@ export default function ClientesPage() {
               filtered.map((c) => (
                 <div key={c.id} className="clientes-mobile-card">
                   <div className="clientes-mobile-client-header">
-                    <p className="clientes-mobile-client-name" title={c.nome}>{c.nome}</p>
+                    <Tooltip text={c.nome} position="top">
+                      <p className="clientes-mobile-client-name" title={c.nome}>{c.nome}</p>
+                    </Tooltip>
                     {c.documento ? (
-                      <p className="clientes-mobile-client-document" title={c.documento}>{c.documento}</p>
+                      <Tooltip text={c.documento} position="top">
+                        <p className="clientes-mobile-client-document" title={c.documento}>{c.documento}</p>
+                      </Tooltip>
                     ) : null}
                   </div>
 
                   <div className="clientes-mobile-meta">
                     <p className="clientes-mobile-meta-line">
                       <Mail className="clientes-mobile-meta-icon" />
-                      <span className="clientes-mobile-meta-text" title={c.email || "Sem email"}>
-                        {c.email || "Sem email"}
-                      </span>
+                      <Tooltip text={c.email || "Sem email"} position="top">
+                        <span className="clientes-mobile-meta-text" title={c.email || "Sem email"}>
+                          {c.email || "Sem email"}
+                        </span>
+                      </Tooltip>
                     </p>
                     <p className="clientes-mobile-meta-line">
                       <Phone className="clientes-mobile-meta-icon" />
-                      <span className="clientes-mobile-meta-text" title={c.telefone || "Sem telefone"}>
-                        {c.telefone || "Sem telefone"}
-                      </span>
+                      <Tooltip text={c.telefone || "Sem telefone"} position="top">
+                        <span className="clientes-mobile-meta-text" title={c.telefone || "Sem telefone"}>
+                          {c.telefone || "Sem telefone"}
+                        </span>
+                      </Tooltip>
                     </p>
                     <p className="clientes-mobile-meta-line">
                       <MapPin className="clientes-mobile-meta-icon" />
-                      <span className="clientes-mobile-meta-text" title={c.endereco || "Sem endereço"}>
-                        {c.endereco || "Sem endereço"}
-                      </span>
+                      <Tooltip text={c.endereco || "Sem endereço"} position="top">
+                        <span className="clientes-mobile-meta-text" title={c.endereco || "Sem endereço"}>
+                          {c.endereco || "Sem endereço"}
+                        </span>
+                      </Tooltip>
                     </p>
                   </div>
 
@@ -117,7 +128,7 @@ export default function ClientesPage() {
           </div>
 
           <div className="clientes-desktop-table-wrap">
-            <Table>
+            <Table className="clientes-desktop-table">
               <TableHeader>
                 <TableRow>
                   <TableHead>Nome</TableHead>
@@ -137,10 +148,26 @@ export default function ClientesPage() {
               ) : (
                 filtered.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell>{c.nome}</TableCell>
-                    <TableCell>{c.email}</TableCell>
-                    <TableCell>{c.telefone}</TableCell>
-                    <TableCell>{c.endereco}</TableCell>
+                    <TableCell>
+                      <Tooltip text={c.nome} position="top">
+                        <span className="clientes-table-ellipsis" title={c.nome}>{c.nome}</span>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>
+                      <Tooltip text={c.email || "Sem email"} position="top">
+                        <span className="clientes-table-ellipsis" title={c.email || "Sem email"}>{c.email || "Sem email"}</span>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>
+                      <Tooltip text={c.telefone || "Sem telefone"} position="top">
+                        <span className="clientes-table-ellipsis" title={c.telefone || "Sem telefone"}>{c.telefone || "Sem telefone"}</span>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>
+                      <Tooltip text={c.endereco || "Sem endereço"} position="top">
+                        <span className="clientes-table-ellipsis" title={c.endereco || "Sem endereço"}>{c.endereco || "Sem endereço"}</span>
+                      </Tooltip>
+                    </TableCell>
                     <TableCell>
                       <div className="clientes-actions-row">
                         <Button variant="ghost" size="icon" onClick={() => openEdit(c)}>

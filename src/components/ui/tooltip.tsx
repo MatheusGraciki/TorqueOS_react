@@ -26,10 +26,20 @@ const Tooltip = (props: TooltipProps) => {
     sideOffset = 4,
   } = props;
 
+  const trigger = React.isValidElement(children)
+    ? React.cloneElement(children as React.ReactElement<any>, {
+        tabIndex: (children as React.ReactElement<any>).props.tabIndex ?? 0,
+      })
+    : (
+        <span tabIndex={0}>
+          {children}
+        </span>
+      );
+
   return (
     <TooltipPrimitive.Provider delayDuration={delayDuration} skipDelayDuration={skipDelayDuration}>
       <TooltipPrimitive.Root>
-        <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
+        <TooltipPrimitive.Trigger asChild>{trigger}</TooltipPrimitive.Trigger>
         <TooltipPrimitive.Content
           side={position}
           sideOffset={sideOffset}

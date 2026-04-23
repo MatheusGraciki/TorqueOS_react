@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Calendar, Car, Gauge, Palette, Pencil, Plus, Trash2, User } from "lucide-react";
 import { useCarrosPage } from "./hooks/useCarrosPage";
@@ -92,14 +93,20 @@ export default function CarrosPage() {
                 return (
                   <div key={c.id} className="carros-mobile-card">
                     <div className="carros-mobile-car-header">
-                      <p className="carros-mobile-car-name" title={modeloLabel}>{modeloLabel}</p>
-                      <p className="carros-mobile-car-plate" title={c.placa}>{c.placa}</p>
+                      <Tooltip text={modeloLabel} position="top">
+                        <p className="carros-mobile-car-name" title={modeloLabel}>{modeloLabel}</p>
+                      </Tooltip>
+                      <Tooltip text={c.placa} position="top">
+                        <p className="carros-mobile-car-plate" title={c.placa}>{c.placa}</p>
+                      </Tooltip>
                     </div>
 
                     <div className="carros-mobile-meta">
                       <p className="carros-mobile-meta-line">
                         <User className="carros-mobile-meta-icon" />
-                        <span className="carros-mobile-meta-text" title={clienteNome}>{clienteNome}</span>
+                        <Tooltip text={clienteNome} position="top">
+                          <span className="carros-mobile-meta-text" title={clienteNome}>{clienteNome}</span>
+                        </Tooltip>
                       </p>
                       <p className="carros-mobile-meta-line">
                         <Calendar className="carros-mobile-meta-icon" />
@@ -107,7 +114,9 @@ export default function CarrosPage() {
                       </p>
                       <p className="carros-mobile-meta-line">
                         <Palette className="carros-mobile-meta-icon" />
-                        <span className="carros-mobile-meta-text" title={c.cor || "Sem cor"}>{c.cor || "Sem cor"}</span>
+                        <Tooltip text={c.cor || "Sem cor"} position="top">
+                          <span className="carros-mobile-meta-text" title={c.cor || "Sem cor"}>{c.cor || "Sem cor"}</span>
+                        </Tooltip>
                       </p>
                       <p className="carros-mobile-meta-line">
                         <Gauge className="carros-mobile-meta-icon" />
@@ -137,7 +146,7 @@ export default function CarrosPage() {
           </div>
 
           <div className="carros-desktop-table-wrap">
-            <Table>
+            <Table className="carros-desktop-table">
               <TableHeader>
                 <TableRow>
                   <TableHead>Placa</TableHead>
@@ -159,12 +168,28 @@ export default function CarrosPage() {
               ) : (
                 filtered.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell className="carros-placa-cell">{c.placa}</TableCell>
-                    <TableCell>{c.marca} {c.modelo}</TableCell>
+                    <TableCell className="carros-placa-cell">
+                      <Tooltip text={c.placa} position="top">
+                        <span className="carros-table-ellipsis" title={c.placa}>{c.placa}</span>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>
+                      <Tooltip text={`${c.marca} ${c.modelo}`.trim()} position="top">
+                        <span className="carros-table-ellipsis" title={`${c.marca} ${c.modelo}`.trim()}>{c.marca} {c.modelo}</span>
+                      </Tooltip>
+                    </TableCell>
                     <TableCell>{c.ano}</TableCell>
-                    <TableCell>{c.cor}</TableCell>
+                    <TableCell>
+                      <Tooltip text={c.cor || "Sem cor"} position="top">
+                        <span className="carros-table-ellipsis" title={c.cor || "Sem cor"}>{c.cor || "Sem cor"}</span>
+                      </Tooltip>
+                    </TableCell>
                     <TableCell>{c.quilometragem.toLocaleString("pt-BR")} km</TableCell>
-                    <TableCell>{getClienteNome(c.clienteId)}</TableCell>
+                    <TableCell>
+                      <Tooltip text={getClienteNome(c.clienteId)} position="top">
+                        <span className="carros-table-ellipsis" title={getClienteNome(c.clienteId)}>{getClienteNome(c.clienteId)}</span>
+                      </Tooltip>
+                    </TableCell>
                     <TableCell>
                       <div className="carros-actions-row">
                         <Button variant="ghost" size="icon" onClick={() => openEdit(c)}>
